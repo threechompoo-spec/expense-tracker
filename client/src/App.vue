@@ -78,7 +78,7 @@ export default {
 <style>
 body {
   font-family: Inter, sans-serif;
-  background-color: #15325d;
+  background-color: #f0f4f9;
   margin: 0;
   padding: 20px;
 }
