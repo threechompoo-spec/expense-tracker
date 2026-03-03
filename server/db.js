@@ -1,18 +1,22 @@
-const mysql = require('mysql2')
+const sqlite3 = require("sqlite3").verbose();
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '', // ใส่รหัสผ่าน MySQL ของเธอ
-  database: 'expense_db'
-})
-
-connection.connect((err) => {
+const db = new sqlite3.Database("./expense.db", (err) => {
   if (err) {
-    console.error('Database connection failed:', err)
+    console.error("Database connection failed:", err);
   } else {
-    console.log('Connected to MySQL')
-  }
-})
+    console.log("Connected to SQLite");
 
-module.exports = connection
+    db.run(`
+      CREATE TABLE IF NOT EXISTS transactions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        type TEXT,
+        amount REAL,
+        category TEXT,
+        note TEXT,
+        date TEXT
+      )
+    `);
+  }
+});
+
+module.exports = db;
